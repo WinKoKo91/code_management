@@ -1,3 +1,4 @@
+import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
@@ -53,12 +54,12 @@ abstract class BaseController extends GetxController {
 
   // ignore: long-parameter-list
   dynamic callDataService<T>(
-      Future<T> future, {
-        Function(Exception exception)? onError,
-        Function(T response)? onSuccess,
-        Function? onStart,
-        Function? onComplete,
-      }) async {
+    Future<T> future, {
+    Function(Exception exception)? onError,
+    Function(T response)? onSuccess,
+    Function? onStart,
+    Function? onComplete,
+  }) async {
     Exception? _exception;
 
     onStart == null ? showLoading() : onStart();
@@ -71,32 +72,12 @@ abstract class BaseController extends GetxController {
       onComplete == null ? hideLoading() : onComplete();
 
       return response;
-    } on ServiceUnavailableException catch (exception) {
-      _exception = exception;
-      showErrorMessage(exception.message);
-    } on UnauthorizedException catch (exception) {
-      _exception = exception;
-      showErrorMessage(exception.message);
-    } on TimeoutException catch (exception) {
-      _exception = exception;
-      showErrorMessage(exception.message );
-    } on NetworkException catch (exception) {
-      _exception = exception;
-      showErrorMessage(exception.message);
-    } on JsonFormatException catch (exception) {
-      _exception = exception;
-      showErrorMessage(exception.message);
-    } on NotFoundException catch (exception) {
-      _exception = exception;
-      showErrorMessage(exception.message);
-    } on ApiException catch (exception) {
-      _exception = exception;
-    } on AppException catch (exception) {
-      _exception = exception;
+    } on SocketException catch (exception) {
+      _exception = SocketException("No Internet Connection");
       showErrorMessage(exception.message);
     } catch (error) {
       _exception = AppException(message: "$error");
-      logger.e("Controller>>>>>> error $error");
+    //  logger.e("Controller>>>>>> error $error");
     }
 
     if (onError != null) onError(_exception);

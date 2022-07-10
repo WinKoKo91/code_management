@@ -31,3 +31,8 @@ const groupLabelStyle = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
     color: AppColors.textColorPrimary);
+
+const dateLabelStyle = TextStyle(
+    fontSize: 13,
+    fontWeight: FontWeight.w500,
+    color: Colors.blueAccent);

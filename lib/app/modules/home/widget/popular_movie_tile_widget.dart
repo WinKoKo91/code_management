@@ -6,17 +6,16 @@ import 'package:get/get.dart';
 
 import '../../../core/values/app_strings.dart';
 import '../../../core/values/text_styles.dart';
+import '../../../routes/app_pages.dart';
 import 'movie_poster_widget.dart';
 
 class PopularMovieTileWidget extends GetView<HomeController> {
-
-  const PopularMovieTileWidget(
-      {Key? key,
-      required this.model,
-      this.leftMargin = 0,
-      this.rightMargin = 0,
-      })
-      : super(key: key);
+  const PopularMovieTileWidget({
+    Key? key,
+    required this.model,
+    this.leftMargin = 0,
+    this.rightMargin = 0,
+  }) : super(key: key);
 
   final MovieModel model;
   final double leftMargin;
@@ -24,41 +23,46 @@ class PopularMovieTileWidget extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: leftMargin, right: rightMargin),
-      width: 120,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          MoviePosterWidget(
-            imageURL: model.posterPath,
-            isFavorite: model.isFavorite,
-            onClickFavorite: () {
-              controller.onClickPopularMovieFavorite(model.id);
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: AppValues.margin_6),
-            child: Text(
-              model.title,
-              style: movieTitleStyle,
-              maxLines: 2,
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(Routes.MOVIE_DETAIL, arguments: model);
+      },
+      child: Container(
+        margin: EdgeInsets.only(left: leftMargin, right: rightMargin),
+        width: 120,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            MoviePosterWidget(
+              imageURL: model.posterPath,
+              isFavorite: model.isFavorite,
+              onClickFavorite: () {
+                controller.onClickMovieFavorite(model.id);
+              },
             ),
-          ),
-          Row(
-            children: [
-              Text(
-                model.voteAverage.toString(),
-                style: movieRatingStyle,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppValues.margin_6),
+              child: Text(
+                model.title,
+                style: movieTitleStyle,
+                maxLines: 2,
               ),
-              Icon(
-                Icons.star,
-                color: Colors.amberAccent,
-                size: 20,
-              )
-            ],
-          )
-        ],
+            ),
+            Row(
+              children: [
+                Text(
+                  model.voteAverage.toString(),
+                  style: movieRatingStyle,
+                ),
+                Icon(
+                  Icons.star,
+                  color: Colors.amberAccent,
+                  size: 20,
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

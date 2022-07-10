@@ -26,19 +26,17 @@ class HomeController extends BaseController {
 
   @override
   void onReady() {
-
     super.onReady();
   }
 
   getPopularMovie() async {
     callDataService(
       _repository.getPopularMovie(),
-      onSuccess: (PopularMovieResponse response) {
-        _popularMovie.value = response.results.map((e) {
-          e.posterPath = F.imageBaseUrl + e.posterPath;
-          return e;
-        }).toList();
+      onSuccess: _handlePopularMovieReponse,
+      onError: (exception) {
+
       },
+      onComplete: () {},
     );
   }
 
@@ -61,14 +59,33 @@ class HomeController extends BaseController {
   }
 
   onClickPopularMovieFavorite(int id) {
-    MovieModel model = popularMovie.firstWhere((element) => element.id == id);
-    model.isFavorite = !model.isFavorite;
-    _popularMovie.refresh();
+    MovieModel? model =
+        popularMovie.firstWhereOrNull((element) => element.id == id);
+    if (model != null) {
+      model.isFavorite = !model.isFavorite;
+      _popularMovie.refresh();
+    }
   }
 
   onClickUpcomingMovieFavorite(int id) {
-    MovieModel model = upcomingMovie.firstWhere((element) => element.id == id);
-    model.isFavorite = !model.isFavorite;
-    _upcomingMovie.refresh();
+    MovieModel? model =
+        upcomingMovie.firstWhereOrNull((element) => element.id == id);
+
+    if (model != null) {
+      model.isFavorite = !model.isFavorite;
+      _upcomingMovie.refresh();
+    }
+  }
+
+  void onClickMovieFavorite(id) {
+    onClickPopularMovieFavorite(id);
+    onClickUpcomingMovieFavorite(id);
+  }
+
+  _handlePopularMovieReponse(PopularMovieResponse response) {
+    _popularMovie.value = response.results.map((e) {
+      e.posterPath = F.imageBaseUrl + e.posterPath;
+      return e;
+    }).toList();
   }
 }
