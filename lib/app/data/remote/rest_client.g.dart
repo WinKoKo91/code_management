@@ -16,18 +16,34 @@ class _RestClient implements RestClient {
   String? baseUrl;
 
   @override
-  Future<RandomImageResponse> getRandomDogImage() async {
+  Future<PopularMovieResponse> getPopularMovie({required apiKey}) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'api_key': apiKey};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<RandomImageResponse>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/random',
+        _setStreamType<PopularMovieResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'popular',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = RandomImageResponse.fromJson(_result.data!);
+    final value = PopularMovieResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<UpcomingMovieResponse> getUpcomingMovie({required apiKey}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'api_key': apiKey};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UpcomingMovieResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'upcoming',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UpcomingMovieResponse.fromJson(_result.data!);
     return value;
   }
 

@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_getx_template/app/modules/home/widget/popular_movies_widget.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../flavors.dart';
 import '../../../core/bases/base_view.dart';
 import '../../../core/values/app_values.dart';
 import '../../../core/values/text_styles.dart';
 import '../../../global_widgets/asset_image_view.dart';
 import '../../../global_widgets/custom_app_bar.dart';
 import '../controllers/home_controller.dart';
+import '../widget/upcoming_movies_widget.dart';
 
 class HomeView extends BaseView<HomeController> {
   @override
   PreferredSizeWidget? appBar(BuildContext context) {
     return CustomAppBar(
-      appBarTitleText: 'Home',
+      appBarTitleText: F.title,
       isBackButtonEnabled: true,
     );
   }
@@ -28,22 +31,24 @@ class HomeView extends BaseView<HomeController> {
   }
 
   Widget _getView() {
-    return controller.randomImageResponse.status != 'success'
+    return controller.popularMovie.isEmpty
         ? Container()
-        : Container(
-            margin: EdgeInsets.all(AppValues.margin_20),
+        : SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Random Image',
-                  style: cardTitleStyle,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
+                PopularMoviesWidget(
+                  movies: controller.popularMovie,
+                  onClickFavorite: (id) {
+                    controller.onClickPopularMovieFavorite(id);
+                  },
                 ),
-                Image.network(
-                  controller.randomImageResponse.message,
-                ),
+                UpcomingMoviesWidget(
+                  movies: controller.upcomingMovie,
+                  onClickFavorite: (id) {
+                    controller.onClickPopularMovieFavorite(id);
+                  },
+                )
               ],
             ),
           );

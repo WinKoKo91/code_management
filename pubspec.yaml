@@ -7,11 +7,8 @@ environment:
 
 dependencies: 
   cupertino_icons: ^1.0.2
-  get: 4.6.5
   dio: 4.0.6
   flutter_dotenv: 5.0.2
-  flutter_staggered_grid_view: 0.6.1
-  fluttertoast: 8.0.9
   get_storage: 2.0.3
   http: 0.13.4
   intl: 0.17.0
@@ -23,11 +20,10 @@ dependencies:
   cached_network_image: 3.2.1
   change_app_package_name: 1.1.0
   http_interceptor: 1.0.2
-  firebase_messaging: 11.4.2
   build: 2.3.0
-  firebase_core: 1.18.0
-  flutter_local_notifications: 9.6.1
   flutter_svg: 0.23.0+1
+  fluttertoast: 8.0.9
+  get: 4.6.5
   flutter: 
     sdk: flutter
 
@@ -55,22 +51,23 @@ flavorizr:
   flavors: 
     dev: 
       app: 
-        name: GetxTemplateDev
+        name: MovieApp
       android: 
-        applicationId: com.example.flutter_getx_template.dev
+        applicationId: com.example.code_management.dev
       ios: 
-        bundleId: com.example.flutter_getx_template.dev
+        bundleId: com.example.code_management.dev
     production: 
       app: 
-        name: GetxTemplate
+        name: MovieApp
       android: 
-        applicationId: com.example.flutter_getx_template
+        applicationId: com.example.code_management
       ios: 
-        bundleId: com.example.flutter_getx_template
+        bundleId: com.example.code_management
 
 flutter: 
   assets: 
     - assets/logos/
     - assets/images/
+    - .env
   uses-material-design: true
 

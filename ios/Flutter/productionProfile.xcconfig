@@ -2,4 +2,4 @@
 
 FLUTTER_TARGET=lib/main_production.dart
 ASSET_PREFIX=production
-BUNDLE_NAME=GetxTemplate
+BUNDLE_NAME=MovieApp

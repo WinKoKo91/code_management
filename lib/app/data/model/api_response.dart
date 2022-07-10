@@ -1,14 +1,39 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'date_duration_model.dart';
+import 'movie_model.dart';
+
 part 'api_response.g.dart';
 
 @JsonSerializable()
-class RandomImageResponse {
-  final String message;
-  final String status;
+class PopularMovieResponse {
+  int page;
+  List<MovieModel> results;
+  @JsonKey(name: 'total_pages')
+  int totalPages;
+  @JsonKey(name: 'total_results')
+  int totalResults;
 
-  RandomImageResponse({this.message = "", this.status = ""});
+  PopularMovieResponse(
+      this.page, this.results, this.totalPages, this.totalResults);
 
-  factory RandomImageResponse.fromJson(Map<String, dynamic> json) =>
-      _$RandomImageResponseFromJson(json);
+  factory PopularMovieResponse.fromJson(Map<String, dynamic> json) =>
+      _$PopularMovieResponseFromJson(json);
+}
+
+@JsonSerializable()
+class UpcomingMovieResponse {
+  DateDurationModel dates;
+  int page;
+  List<MovieModel> results;
+  @JsonKey(name: 'total_pages')
+  int totalPages;
+  @JsonKey(name: 'total_results')
+  int totalResults;
+
+  UpcomingMovieResponse(
+      this.dates, this.page, this.results, this.totalPages, this.totalResults);
+
+  factory UpcomingMovieResponse.fromJson(Map<String, dynamic> json) =>
+      _$UpcomingMovieResponseFromJson(json);
 }

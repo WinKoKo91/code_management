@@ -1,4 +1,5 @@
 import 'package:flutter_getx_template/app/data/repository/repository.dart';
+import 'package:flutter_getx_template/flavors.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -10,7 +11,13 @@ class RepositoryImpl extends Repository {
   late var _storage;
 
   @override
-  Future<RandomImageResponse> fetchRandomDogImage() {
-    return _restClient.getRandomDogImage();
+  Future<PopularMovieResponse> getPopularMovie() {
+    return _restClient.getPopularMovie(apiKey: F.apiKey);
   }
+
+  @override
+  Future<UpcomingMovieResponse> getUpcomingMovie() {
+    return _restClient.getUpcomingMovie(apiKey: F.apiKey);
+  }
+
 }

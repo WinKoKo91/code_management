@@ -20,8 +20,12 @@ abstract class RestClient {
     final dio = DioProvider.dioWithHeaderToken;
     return RestClient(dio);
   }
+  @POST('popular')
+  Future<PopularMovieResponse> getPopularMovie(
+      {@Query('api_key') required String apiKey});
 
-  @GET('/random')
-  Future<RandomImageResponse> getRandomDogImage();
+  @POST('upcoming')
+  Future<UpcomingMovieResponse> getUpcomingMovie(
+      {@Query('api_key') required String apiKey});
 
 }

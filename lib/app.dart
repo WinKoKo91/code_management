@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_getx_template/app/bindings/initial_binding.dart';
@@ -9,7 +8,6 @@ import 'package:get/get.dart';
 import 'app/core/config/build_config.dart';
 import 'app/core/config/env_config.dart';
 import 'app/core/values/app_colors.dart';
-import 'app/data/services/messaging_service.dart';
 import 'app/routes/app_pages.dart';
 import 'flavors.dart';
 
@@ -34,30 +32,9 @@ class _AppState extends State<App> {
       envConfig: devConfig,
     );
 
-    MessagingService.initalize(onSelectNotification).then(
-      (value) => firebaseCloudMessagingListeners(),
-    );
+
   }
 
-  void firebaseCloudMessagingListeners() async {
-    MessagingService.onMessage.listen(MessagingService.invokeLocalNotification);
-    MessagingService.onMessageOpenedApp.listen(_pageOpenForOnLaunch);
-  }
-
-  _pageOpenForOnLaunch(RemoteMessage remoteMessage) {
-    final Map<String, dynamic> message = remoteMessage.data;
-    onSelectNotification(jsonEncode(message));
-  }
-
-  Future onSelectNotification(String? payload) async {
-    final payloadData = jsonDecode(payload!);
-  }
-
-  String? token;
-
-  getToken() async {
-    token = (await FirebaseMessaging.instance.getToken())!;
-  }
 
   @override
   Widget build(BuildContext context) {
