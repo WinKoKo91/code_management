@@ -1,16 +1,13 @@
 # flutter_getx_template
 
-A new Flutter project.
+Movie project with Getx Cli Design pattern.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Need to setup Run Configuration in Android Studio for product and dev
 
-A few resources to get you started if this is your first Flutter project:
+For Production Flavor
+<img width="1035" alt="Screen Shot 2022-07-11 at 20 57 44" src="https://user-images.githubusercontent.com/40586785/178288054-08d64051-4207-4aff-82e1-379a58285656.png">
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+For Development Flavor
+<img width="1039" alt="Screen Shot 2022-07-11 at 20 57 52" src="https://user-images.githubusercontent.com/40586785/178288075-011598c9-5e4e-4197-afa0-0e04270e6987.png">
